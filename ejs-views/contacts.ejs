@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-contact
-</body>
-</html>
+
+<%- include('./partials/header.ejs') %>
+
+
+contacts
+<% if (contacts.length){ %>
+    <% contacts.forEach((item, i) => { %>
+        <h3><%= item.name %></h3>
+    <% }) %>
+<% } %>
+<%- include('./partials/footer.ejs') %>

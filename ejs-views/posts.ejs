@@ -1,11 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>POSTS</h2>
+<%- include('./partials/header.ejs') %>
 
-</body>
-</html>
+
+<div class="container mt-5 mb-5">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">title</th>
+            <th scope="col">text</th>
+            <th scope="col">data</th>
+            <th scope="col">author</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% if (posts.length){ %>
+            <% posts.forEach((post, i) => { %>
+                <tr>
+                    <th scope="row"><%= post.id %></th>
+                    <td><%= post.title %></td>
+                    <td><%= post.text %></td>
+                    <td><%= post.data %></td>
+                    <td><%= post.author %></td>
+                </tr>
+            <% }) %>
+        <% } %>
+
+        </tbody>
+    </table>
+</div>
+<%- include('./partials/footer.ejs') %>
