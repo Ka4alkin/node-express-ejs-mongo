@@ -2,30 +2,30 @@ const express = require('express')
 const path = require('path')
 const app = express()
 
-
+app.set('view engine','ejs')
 
 const PORT = 3000
 
-const createPath = (page) => path.resolve(__dirname, 'views', `${page}.html`)
+const createPath = (page) => path.resolve(__dirname, 'ejs-views', `${page}.ejs`)
 
 app.get('/',(req ,res)=>{
-    res.sendFile(createPath('index'))
+    res.render(createPath('index'))
 })
 
 app.get('/contacts',(req,res)=>{
-    res.sendFile(createPath('contacts'))
+    res.render(createPath('contacts'))
 })
 
 app.get('/posts',(req,res)=>{
-    res.sendFile(createPath('posts'))
+    res.render(createPath('posts'))
 })
 
 app.get('/post:id',(req,res)=>{
-    res.sendFile(createPath('post'))
+    res.render(createPath('post'))
 })
 
 app.get('/add-post',(req,res)=>{
-    res.sendFile(createPath('add-post'))
+    res.render(createPath('add-post'))
 })
 
 
@@ -38,7 +38,7 @@ app.get('/about-us',(req,res)=>{
 app.use((req,res)=>{
     res
         .status(404)
-        .sendFile(createPath('error'))
+        .render(createPath('error'))
 })
 
 
