@@ -1,11 +1,15 @@
-
 <%- include('./partials/header.ejs') %>
 
+<div class="container mt-5 mb-5">
+    <div class="list-group">
+        <% if (contacts.length){ %>
+            <% contacts.forEach((item, i) => { %>
 
-contacts
-<% if (contacts.length){ %>
-    <% contacts.forEach((item, i) => { %>
-        <h3><%= item.name %></h3>
-    <% }) %>
-<% } %>
+                <a href="<%= item.link %>" class="list-group-item list-group-item-action"><%= item.name %></a>
+
+            <% }) %>
+        <% } %>
+    </div>
+</div>
+
 <%- include('./partials/footer.ejs') %>

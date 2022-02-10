@@ -3,6 +3,7 @@ const path = require('path')
 const app = express()
 const mongoose = require('mongoose')
 const Post = require('./models/post')
+const Contact = require('./models/contacts')
 
 app.set('view engine', 'ejs')
 
@@ -32,11 +33,14 @@ app.get('/', (req, res) => {
 })
 
 app.get('/contacts', (req, res) => {
-    const contacts = [
-        {name: 'youtube'},
-        {name: 'twitter'}
-    ]
-    res.render(createPath('contacts'), {contacts})
+    Contact
+        .find()
+        .then((contacts)=>res.render(createPath('contacts'), {contacts}))
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
+
 })
 
 app.get('/posts', (req, res) => {
