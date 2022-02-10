@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 app.get('/contacts', (req, res) => {
     Contact
         .find()
-        .then((contacts)=>res.render(createPath('contacts'), {contacts}))
+        .then((contacts) => res.render(createPath('contacts'), {contacts}))
         .catch((error) => {
             console.log(error)
             res.render(createPath('error'), {title: 'Error'})
@@ -44,34 +44,25 @@ app.get('/contacts', (req, res) => {
 })
 
 app.get('/posts', (req, res) => {
-    const posts = [
-        {
-            id: 1,
-            title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-            text: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
-            data: '29.02.2020',
-            author: 'Nazar'
-        },
-        {
-            id: 2,
-            title: 'sunt aut face turi optio reprehenderit',
-            text: 'quia et nostrum rerum est autem sunt rem eveniet architecto',
-            data: '19.12.2320',
-            author: 'Taras'
-        }
-    ]
-    res.render(createPath('posts'), {posts})
+    Post
+        .find()
+        .sort({createdAt: -1})
+        .then((posts) => res.render(createPath('posts'), {posts}))
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
+
 })
 
 app.get('/post:id', (req, res) => {
-    const post = {
-        id: 1,
-        title: 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
-        text: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
-        data: '29.02.2020',
-        author: 'Nazar'
-    }
-    res.render(createPath('post'), {post})
+    Post
+        .findById(req.params.id)
+        .then((post) => res.render(createPath('post'), {post}))
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
 })
 
 app.get('/add-post', (req, res) => {
@@ -85,7 +76,8 @@ app.post('/add-post', (req, res) => {
     const post = new Post({title, author, text})
     post
         .save()
-        .then((result) => res.send(result))
+        // .then((result) => res.send(result))
+        .then((result) => res.redirect('/posts'))
         .catch((error) => {
             console.log(error)
             res.render(createPath('error'), {title: 'Error'})

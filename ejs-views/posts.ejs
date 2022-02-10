@@ -5,7 +5,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">id</th>
+            <th scope="col">№</th>
             <th scope="col">title</th>
             <th scope="col">text</th>
             <th scope="col">data</th>
@@ -17,10 +17,10 @@
         <% if (posts.length){ %>
             <% posts.forEach((post, i) => { %>
                 <tr>
-                    <th scope="row"><%= post.id %></th>
-                    <td><%= post.title %></td>
+                    <th scope="row"><%= i+1 %></th>
+                    <td><a href="post<%= post.id %>"><%= post.title %></a></td>
                     <td><%= post.text %></td>
-                    <td><%= post.data %></td>
+                    <td><%= post.createdAt.toLocaleDateString()  %></td>
                     <td><%= post.author %></td>
                 </tr>
             <% }) %>
