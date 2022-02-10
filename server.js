@@ -1,11 +1,23 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const mongoose = require('mongoose')
+const Post = require('./models/post')
 
 app.set('view engine', 'ejs')
 
 const PORT = 3000
 
+//db
+const db = 'mongodb+srv://ka4alkin:cegthnfyr@cluster0.uwzsc.mongodb.net/node-blog-test?retryWrites=true&w=majority'
+
+
+mongoose
+    // .connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+    .connect(db)
+    .then((res) => console.log('Connected to DB'))
+    .catch((error) => console.log(error))
+//---
 const createPath = (page) => path.resolve(__dirname, 'ejs-views', `${page}.ejs`)
 
 app.use(express.static('styles'))
@@ -65,15 +77,17 @@ app.get('/add-post', (req, res) => {
 //POSTS
 
 app.post('/add-post', (req, res) => {
-    const {title,author, text} = req.body
-    const post = {
-        id: +new Date(),
-        data: new Date().toLocaleDateString(),
-        title,
-        author,
-        text
-    }
-    res.render(createPath('post'),{post})
+    const {title, author, text} = req.body
+    const post = new Post({title, author, text})
+    post
+        .save()
+        .then((result) => res.send(result))
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
+
+    // res.render(createPath('post'), {post})
 })
 
 
