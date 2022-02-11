@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const Post = require('./models/post')
 const Contact = require('./models/contacts')
+const methodOverride = require('method-override')
 
 app.set('view engine', 'ejs')
 
@@ -23,6 +24,9 @@ const createPath = (page) => path.resolve(__dirname, 'ejs-views', `${page}.ejs`)
 
 app.use(express.static('styles'))
 app.use(express.static('scripts'))
+
+//methodOverride
+app.use(methodOverride('_method'))
 
 //add-post-form
 app.use(express.urlencoded({extended: false}))
@@ -56,10 +60,20 @@ app.get('/posts', (req, res) => {
 
 })
 
-app.get('/post:id', (req, res) => {
+app.get('/posts/:id', (req, res) => {
     Post
         .findById(req.params.id)
         .then((post) => res.render(createPath('post'), {post}))
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
+})
+
+app.get('/edit/:id', (req, res) => {
+    Post
+        .findById(req.params.id)
+        .then((post) => res.render(createPath('edit-post'), {post}))
         .catch((error) => {
             console.log(error)
             res.render(createPath('error'), {title: 'Error'})
@@ -90,12 +104,25 @@ app.post('/add-post', (req, res) => {
 
 //DELETE
 
-app.delete('/posts/:id',(req,res)=>{
+app.delete('/posts/:id', (req, res) => {
     Post
         .findByIdAndDelete(req.params.id)
         .then((result) => {
             res.sendStatus(200)
         })
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
+})
+
+//PUT
+app.put('/edit/:id', (req, res) => {
+    const {title, author, text} = req.body
+
+    Post
+        .findByIdAndUpdate(req.params.id, {title, author, text})
+        .then((result) => res.redirect(`/posts/${req.params.id}`))
         .catch((error) => {
             console.log(error)
             res.render(createPath('error'), {title: 'Error'})

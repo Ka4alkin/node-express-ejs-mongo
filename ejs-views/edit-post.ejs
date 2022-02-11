@@ -2,20 +2,21 @@
 
 
 <div class="container mt-5 mb-5">
-    <form id="post-form" method="post" action="/add-post">
+    <form id="post-form" method="post" action="/edit/<%= post.id %>?_method=PUT">
         <div class="mb-3">
             <label for="title" class="form-label">Post title</label>
-            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+            <input value="<%= post.title %>" type="text" class="form-control" name="title" id="title"
+                   aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="text" class="form-label">Post text</label>
-            <input type="text" class="form-control" name="text" id="text">
+            <input value="<%= post.text %>" type="text" class="form-control" name="text" id="text">
         </div>
         <div class="mb-3">
             <label for="author" class="form-label">Author</label>
-            <input type="text" class="form-control" name="author" id="author">
+            <input value="<%= post.author %>" type="text" class="form-control" name="author" id="author">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Edit</button>
     </form>
 </div>
 

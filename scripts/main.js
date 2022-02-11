@@ -6,7 +6,8 @@ if (tablePosts){
             if (e.target.classList.contains('btn-edit')) {
                 //edit
                 const id = e.target.getAttribute('data-id')
-
+                console.log('edit')
+                window.location.href = `/edit/${id}`
             } else if (e.target.classList.contains('btn-delete')) {
                 //delete
                 const id = e.target.getAttribute('data-id')
