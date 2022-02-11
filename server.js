@@ -22,6 +22,7 @@ mongoose
 const createPath = (page) => path.resolve(__dirname, 'ejs-views', `${page}.ejs`)
 
 app.use(express.static('styles'))
+app.use(express.static('scripts'))
 
 //add-post-form
 app.use(express.urlencoded({extended: false}))
@@ -86,6 +87,20 @@ app.post('/add-post', (req, res) => {
     // res.render(createPath('post'), {post})
 })
 
+
+//DELETE
+
+app.delete('/posts/:id',(req,res)=>{
+    Post
+        .findByIdAndDelete(req.params.id)
+        .then((result) => {
+            res.sendStatus(200)
+        })
+        .catch((error) => {
+            console.log(error)
+            res.render(createPath('error'), {title: 'Error'})
+        })
+})
 
 //redirects
 app.get('/about-us', (req, res) => {

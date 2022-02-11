@@ -3,7 +3,7 @@
 
 
 <div class="container mt-5 mb-5">
-    <table class="table">
+    <table class="table table-posts">
         <thead>
         <tr>
 <!--            <th scope="col">id</th>-->
@@ -11,6 +11,9 @@
             <th scope="col">text</th>
             <th scope="col">data</th>
             <th scope="col">author</th>
+            <th scope="col">edit</th>
+            <th scope="col">delete</th>
+
         </tr>
         </thead>
         <tbody>
@@ -23,6 +26,21 @@
                     <td><%= post.text %></td>
                     <td><%= post.createdAt.toLocaleDateString() %></td>
                     <td><%= post.author  %></td>
+                    <td>
+                        <button data-id="<%=post.id%>" type="button" class="btn btn-edit btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench-adjustable" viewBox="0 0 16 16">
+                                <path d="M16 4.5a4.492 4.492 0 0 1-1.703 3.526L13 5l2.959-1.11c.027.2.041.403.041.61Z"></path>
+                                <path d="M11.5 9c.653 0 1.273-.139 1.833-.39L12 5.5 11 3l3.826-1.53A4.5 4.5 0 0 0 7.29 6.092l-6.116 5.096a2.583 2.583 0 1 0 3.638 3.638L9.908 8.71A4.49 4.49 0 0 0 11.5 9Zm-1.292-4.361-.596.893.809-.27a.25.25 0 0 1 .287.377l-.596.893.809-.27.158.475-1.5.5a.25.25 0 0 1-.287-.376l.596-.893-.809.27a.25.25 0 0 1-.287-.377l.596-.893-.809.27-.158-.475 1.5-.5a.25.25 0 0 1 .287.376ZM3 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+                            </svg>
+                        </button>
+                    </td>
+                    <td>
+                        <button data-id="<%=post.id%>" type="button" class="btn btn-delete btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
+                                <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"></path>
+                            </svg>
+                        </button>
+                    </td>
                 </tr>
 
         <% } %>
