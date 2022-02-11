@@ -20,7 +20,7 @@
             <% posts.forEach((post, i) => { %>
                 <tr>
                     <th scope="row"><%= i+1 %></th>
-                    <td><a href="posts/<%= post.id %>"><%= post.title %></a></td>
+                    <td><a href="post/<%= post.id %>"><%= post.title %></a></td>
                     <td><%= post.text %></td>
                     <td><%= post.createdAt.toLocaleDateString()  %></td>
                     <td><%= post.author %></td>

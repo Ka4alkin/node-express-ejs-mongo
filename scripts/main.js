@@ -13,7 +13,7 @@ if (tablePosts){
                 const id = e.target.getAttribute('data-id')
                 console.log('delete')
                 if (id) {
-                    fetch(`/posts/${id}`, {
+                    fetch(`/post/${id}`, {
                         method: 'DELETE',
                     })
                         .then(()=>{
@@ -25,6 +25,15 @@ if (tablePosts){
                         })
                 }
             }
+        }
+    })
+}
+
+const navbar = document.querySelectorAll('.collapse.navbar-collapse ul li a')
+if (navbar){
+    navbar.forEach((item, i) => {
+        if (location.pathname === item.getAttribute('href')){
+            item.classList.add('active')
         }
     })
 }
